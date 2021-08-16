@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Spinner AOC
+  m_Controller: {fileID: 9100000, guid: 5a2a141f0018619499804caf004fcbb3, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 4acaf271b1848674c86296c0fc307e82, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 61dddf80c6a24a141aa676068b53177b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6bab3afbf54d2f049a8a74a241715961, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 61dddf80c6a24a141aa676068b53177b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 559b711735da3af4e9a9c5d2fcd9ca12, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 80b6c494ce870224e893fb38de93b3ae, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9896448bb72e043448bcdc29366a46f7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 61dddf80c6a24a141aa676068b53177b, type: 2}
