@@ -10,6 +10,12 @@ public class DestroyOffScreen : MonoBehaviour
             return;
 
         while (GameManager.instance.isChaserActive)
+        {
+            if (GameManager.instance.isPlayerDead)
+                return;
+
             gameObject.GetComponent<HealthManager>().Die();
+        }
+            
     }
 }

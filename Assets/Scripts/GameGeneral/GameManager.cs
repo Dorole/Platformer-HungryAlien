@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public float spawnDelay = 1.0f;
     public GameObject spawnParticlePrefab;
     public bool isChaserActive;
+    public bool isPlayerDead;
     private GameObject _chaser;
 
 
@@ -117,7 +118,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator RespawnPlayer()
     {
-        //audio - audio manager or check brackeys 13. respawn effect
+        //audio manager or check brackeys 13. respawn effect
         yield return new WaitForSeconds(spawnDelay);
         appleSlider.value = maxSliderValue;
 
@@ -128,6 +129,7 @@ public class GameManager : MonoBehaviour
 
         if (_chaser != null)
         {
+            isPlayerDead = false;
             _chaser.GetComponent<DamagingObject>().ResetPosition();
         }
 

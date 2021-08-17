@@ -5,16 +5,15 @@ using UnityEngine;
 public class DamagingObject : MonoBehaviour
 {
     public float waitAfterPlayerDeath = 1.0f;
-   
+    
     private Vector3 _startingPosition;
 
     private void Start()
     {
         _startingPosition = transform.position;
 
-
         if (gameObject.tag == "Chaser")
-        {
+        {   
             Physics2D.IgnoreCollision(GameObject.Find("Platform").GetComponent<Collider2D>(), gameObject.GetComponent<CircleCollider2D>());
             GameManager.instance.isChaserActive = true;
         }
@@ -22,7 +21,6 @@ public class DamagingObject : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         if (collision.gameObject.tag != "Player")
             return;
 
@@ -32,7 +30,12 @@ public class DamagingObject : MonoBehaviour
             return;
 
         if ((gameObject.tag == "InstantDeath") || (gameObject.tag == "Chaser"))
+        {
+            if(GameManager.instance.bossLevel)
+                GameManager.instance.isPlayerDead = true;
+
             otherHealthManager.Die();
+        }   
         else
             otherHealthManager.TakeDamage();
     }

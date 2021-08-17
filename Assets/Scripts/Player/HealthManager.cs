@@ -16,18 +16,25 @@ public class HealthManager : MonoBehaviour
     public GameObject extraLife;
     public bool pickedUpLife;
 
+    private GameManager _gm;
+
     private int _maxSliderValue;
     private Animator _animator;
     private TriggerBoss _trigger;
 
     [SerializeField] private ParticleSystem _lifeParticleSystem;
-  
+
+    private void Awake()
+    {
+        _gm = GameManager.instance;
+    }
+
     private void Start()
     {
         if (appleSlider == null)
             appleSlider = GameObject.FindGameObjectWithTag("AppleBar").GetComponent<Slider>();
 
-        _maxSliderValue = GameManager.instance.maxSliderValue;
+        _maxSliderValue = _gm.maxSliderValue;
 
         startingPosition = transform.position;
         _animator = GetComponent<Animator>();
@@ -37,7 +44,7 @@ public class HealthManager : MonoBehaviour
         health = 1;
         pickedUpLife = false;
 
-        if(GameManager.instance.bossLevel)
+        if(_gm.bossLevel)
             _trigger = GameObject.Find("BossTrigger").GetComponent<TriggerBoss>();
     }
 
@@ -55,15 +62,15 @@ public class HealthManager : MonoBehaviour
         GetComponent<PlayerMovementController>().enabled = false;
         _animator.SetBool("IsHurt", true);
 
-        GameManager.instance.StartCoroutine(GameManager.instance.RespawnPlayer());
+        _gm.StartCoroutine(_gm.RespawnPlayer());
 
-        if (GameManager.instance.laserSlider != null && GameManager.instance.laserSlider.IsActive())
+        if (_gm.laserSlider != null && _gm.laserSlider.IsActive())
         {
             LaserBarSlider.instance.StopAllCoroutines();
-            GameManager.instance.laserCanvas.SetActive(false);
+            _gm.laserCanvas.SetActive(false);
         }
 
-        if (GameManager.instance.gunAvailable)
+        if (_gm.gunAvailable)
         {
             GameObject[] gunSpawners;
             gunSpawners = GameObject.FindGameObjectsWithTag("GunSpawner");
@@ -77,7 +84,7 @@ public class HealthManager : MonoBehaviour
             }
         }
 
-        if(GameManager.instance.bossLevel)
+        if(_gm.bossLevel)
         {
             if (_trigger.isTriggered)
                 _trigger.UndoTrigger();
