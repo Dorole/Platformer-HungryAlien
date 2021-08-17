@@ -37,9 +37,9 @@ public class ItemPickup : MonoBehaviour
         
         else if (gameObject.tag == "LaserGun")
         {
-            _gunSpawner = GetComponentInParent<GunSpawner>();
-            _gunSpawner.isEmpty = true;
-            _gunSpawner.playerHasGun = true;
+            //_gunSpawner = GetComponentInParent<GunSpawner>();
+            GetComponentInParent<GunSpawner>().isEmpty = true;
+            GetComponentInParent<GunSpawner>().playerHasGun = true;
 
             transform.parent = collision.transform;
 

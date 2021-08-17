@@ -16,25 +16,19 @@ public class HealthManager : MonoBehaviour
     public GameObject extraLife;
     public bool pickedUpLife;
 
-    private GameManager _gm;
-
-    private int _maxSliderValue;
+    //private float _maxSliderValue;
     private Animator _animator;
     private TriggerBoss _trigger;
 
     [SerializeField] private ParticleSystem _lifeParticleSystem;
-
-    private void Awake()
-    {
-        _gm = GameManager.instance;
-    }
 
     private void Start()
     {
         if (appleSlider == null)
             appleSlider = GameObject.FindGameObjectWithTag("AppleBar").GetComponent<Slider>();
 
-        _maxSliderValue = _gm.maxSliderValue;
+        //_maxSliderValue = appleSlider.maxValue;
+        //_maxSliderValue = _gm.maxSliderValue;
 
         startingPosition = transform.position;
         _animator = GetComponent<Animator>();
@@ -44,9 +38,9 @@ public class HealthManager : MonoBehaviour
         health = 1;
         pickedUpLife = false;
 
-        if(_gm.bossLevel)
-            _trigger = GameObject.Find("BossTrigger").GetComponent<TriggerBoss>();
-    }
+        if (GameManager.instance.bossLevel)
+            _trigger = GameObject.FindGameObjectWithTag("BossTrigger").GetComponent<TriggerBoss>();
+     }
 
     private void Update()
     {
@@ -59,32 +53,32 @@ public class HealthManager : MonoBehaviour
         if(AppleBarSlider.instance != null)
             AppleBarSlider.instance.StopAllCoroutines();
         
-        GetComponent<PlayerMovementController>().enabled = false;
         _animator.SetBool("IsHurt", true);
 
-        _gm.StartCoroutine(_gm.RespawnPlayer());
+        GameManager.instance.StartCoroutine(GameManager.instance.RespawnPlayer());
 
-        if (_gm.laserSlider != null && _gm.laserSlider.IsActive())
+        if (GameManager.instance.laserSlider != null && GameManager.instance.laserSlider.IsActive())
         {
             LaserBarSlider.instance.StopAllCoroutines();
-            _gm.laserCanvas.SetActive(false);
+            GameManager.instance.laserCanvas.SetActive(false);
         }
 
-        if (_gm.gunAvailable)
+        if (GameManager.instance.gunAvailable)
         {
             GameObject[] gunSpawners;
             gunSpawners = GameObject.FindGameObjectsWithTag("GunSpawner");
 
             foreach (GameObject gunSpawner in gunSpawners)
             {
-                bool playerHasGun = gunSpawner.GetComponent<GunSpawner>().playerHasGun;
+                //iz nekog razloga ne funkcionira s bool hasGun = gunSpawner.GetComponent<GunSpawner>().playerHasGun
+                if (!gunSpawner.GetComponent<GunSpawner>().playerHasGun)
+                    break;
 
-                if (playerHasGun)
-                    playerHasGun = false;
+                gunSpawner.GetComponent<GunSpawner>().playerHasGun = false;
             }
         }
 
-        if(_gm.bossLevel)
+        if(GameManager.instance.bossLevel)
         {
             if (_trigger.isTriggered)
                 _trigger.UndoTrigger();

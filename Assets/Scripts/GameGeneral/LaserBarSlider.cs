@@ -12,7 +12,7 @@ public class LaserBarSlider : MonoBehaviour
     public int currentSliderValue = 25;
     private WaitForSeconds _decreaseTick = new WaitForSeconds(1.0f);
 
-    private GunSpawner _gunSpawner;
+    public GunSpawner _gunSpawner;
     
     [SerializeField] private ParticleSystem _laserParticleSystem;
 

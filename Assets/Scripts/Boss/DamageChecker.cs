@@ -8,22 +8,33 @@ public class DamageChecker : MonoBehaviour
     public int projectileDamage = 10;
     public int jumpDamage = 5;
 
-    private BossHealth boss;
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Projectile")
+        if (collision.gameObject.tag == "Player")
         {
-            GetComponentInParent<BossHealth>().TakeDamage(projectileDamage);
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
+            GetComponentInParent<BossHealth>().TakeDamage(jumpDamage);
         }
 
-        else if (collision.gameObject.tag == "Player")
-        {
-            GetComponentInParent<BossHealth>().TakeDamage(jumpDamage);
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
-        }
+        else if (collision.gameObject.tag == "Projectile")
+            GetComponentInParent<BossHealth>().TakeDamage(projectileDamage);
 
         else
             return;
     }
+
+    /*private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
+            GetComponentInParent<BossHealth>().TakeDamage(jumpDamage);
+        }
+
+        else if (collision.gameObject.tag == "Projectile")
+            GetComponentInParent<BossHealth>().TakeDamage(projectileDamage);
+
+        else
+            return;
+    }*/
 }

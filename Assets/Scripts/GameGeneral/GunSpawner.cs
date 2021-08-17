@@ -12,11 +12,6 @@ public class GunSpawner : MonoBehaviour
     public float waitBeforeSpawning = 5.0f;
     public float timer;
 
-    private void Start()
-    {
-        
-    }
-
     private void Update()
     {
         if (isEmpty && !playerHasGun && (Time.time >= timer))

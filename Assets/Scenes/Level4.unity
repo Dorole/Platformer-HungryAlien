@@ -314,7 +314,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 709226887634422630, guid: b87dd808a41a2594f8fb3b23f037273e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b87dd808a41a2594f8fb3b23f037273e, type: 3}
 --- !u!1 &85713725
 GameObject:
@@ -9398,11 +9399,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BossTrigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 5968865762640978284, guid: e63dcccc61a7a5541a7418e3bd309df7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5968865762640978289, guid: e63dcccc61a7a5541a7418e3bd309df7,
         type: 3}
