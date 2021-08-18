@@ -36,6 +36,7 @@ public class Shoot : MonoBehaviour
 			if (laserPrefab == null)
 				return;
 
+			FindObjectOfType<AudioManager>().Play("Shoot");
 			GameObject newLaser = Instantiate(laserPrefab, firingPointTransform.position, Quaternion.identity);
 
 		}

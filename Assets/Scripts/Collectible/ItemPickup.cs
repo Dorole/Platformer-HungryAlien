@@ -8,8 +8,6 @@ public class ItemPickup : MonoBehaviour
 
     public Vector3 offset;
 
-    private GunSpawner _gunSpawner;
-
     private void Awake()
     {
         instance = this; 
@@ -23,7 +21,6 @@ public class ItemPickup : MonoBehaviour
         if (gameObject.tag == "Life")
         {
             transform.parent = collision.transform;
-
             transform.position = new Vector3(collision.transform.position.x + offset.x, collision.transform.position.y + offset.y, collision.transform.position.z);
 
             HealthManager otherHealthManager = collision.gameObject.GetComponent<HealthManager>();
@@ -33,15 +30,18 @@ public class ItemPickup : MonoBehaviour
 
             otherHealthManager.pickedUpLife = true;
             otherHealthManager.health++;
+
+            FindObjectOfType<AudioManager>().Play("Life");
         } 
         
         else if (gameObject.tag == "LaserGun")
         {
-            //_gunSpawner = GetComponentInParent<GunSpawner>();
             GetComponentInParent<GunSpawner>().isEmpty = true;
             GetComponentInParent<GunSpawner>().playerHasGun = true;
 
             transform.parent = collision.transform;
+
+            FindObjectOfType<AudioManager>().Play("GunAcquired");
 
             bool _isPlayerFacingRight = collision.GetComponent<PlayerMovementController>()._isFacingRight;
             Vector3 localScale = transform.localScale;

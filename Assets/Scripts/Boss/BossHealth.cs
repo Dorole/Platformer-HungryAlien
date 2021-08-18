@@ -23,6 +23,7 @@ public class BossHealth : MonoBehaviour
 
         health -= damage;
 
+        FindObjectOfType<AudioManager>().Play("BossHit");
         StartCoroutine(InvulnerableBoss());
             
         if (health <= 0)

@@ -37,6 +37,7 @@ public class JewelLock : MonoBehaviour
         objectToInstantiate = Instantiate(objectToInstantiate, transform.position, Quaternion.identity);
         objectToInstantiate.transform.SetParent(null);
 
+        FindObjectOfType<AudioManager>().Play("Chest");
         Destroy(gameObject);
     }
 

@@ -38,9 +38,10 @@ public class TriggerBoss : MonoBehaviour
         color.a = 1.0f;
         _blockSpriteRenderer.color = color;
 
+        FindObjectOfType<AudioManager>().Play("BossTrigger");
+
         _passageBlock.GetComponent<BoxCollider2D>().enabled = true;
 
-        //ograniči kameru, možda da se stvore zidovi??
     }
 
     private void OnTriggerExit(Collider other)

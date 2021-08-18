@@ -14,6 +14,9 @@ public class BossProjectile : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
 
         Physics2D.IgnoreCollision(GameObject.Find("Platform").GetComponent<Collider2D>(), gameObject.GetComponent<CircleCollider2D>());
+        Physics2D.IgnoreLayerCollision(18, 17);
+
+        FindObjectOfType<AudioManager>().Play("BossShoot");
 
         Vector2 moveDirection = (_target.transform.position - transform.position).normalized * speed;
         _rb.velocity = new Vector2(moveDirection.x, moveDirection.y);

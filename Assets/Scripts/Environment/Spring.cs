@@ -30,8 +30,7 @@ public class Spring : MonoBehaviour
         if (collision.gameObject.tag != "Player")
             return;
 
-        //bounce = true;
-
+        FindObjectOfType<AudioManager>().Play("Jump");
         collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * BounceForce, ForceMode2D.Impulse);
 
         if (gameObject.tag != "BouncyCandy")

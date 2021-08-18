@@ -20,6 +20,7 @@ public class RuneKey : MonoBehaviour
 
         //add to inventory?
 
+        FindObjectOfType<AudioManager>().Play("Rune");
         Destroy(gameObject);
 
     }

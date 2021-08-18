@@ -29,6 +29,9 @@ public class FallingPlatform : MonoBehaviour
     IEnumerator Fall()
     {
         yield return new WaitForSeconds(fallDelay);
+
+        FindObjectOfType<AudioManager>().Play("FallingPlatform");
+
         _platformRB.isKinematic = false;
         GetComponent<BoxCollider2D>().enabled = false;
         yield return 0;

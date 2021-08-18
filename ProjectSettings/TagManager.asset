@@ -45,8 +45,8 @@ TagManager:
   - Dead
   - Crate
   - Chaser
-  - 
-  - 
+  - PlayerProjectile
+  - BossProjectile
   - 
   - 
   - 

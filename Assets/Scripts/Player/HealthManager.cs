@@ -84,6 +84,8 @@ public class HealthManager : MonoBehaviour
                 _trigger.UndoTrigger();
         }
 
+        GameManager.instance.isPlayerDead = true;
+        FindObjectOfType<AudioManager>().Play("PlayerDeath");
         Destroy(gameObject);
 
     }
@@ -102,6 +104,7 @@ public class HealthManager : MonoBehaviour
                 lifeParticleSystem.Play();
             }
 
+            FindObjectOfType<AudioManager>().Play("LifeDestroyed");
             Destroy(extraLife);
             pickedUpLife = false;
 

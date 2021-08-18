@@ -52,6 +52,8 @@ public class LaserBarSlider : MonoBehaviour
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 Destroy(player.transform.Find("LaserGun").gameObject);
 
+                FindObjectOfType<AudioManager>().Play("LifeDestroyed");
+
                 if (_laserParticleSystem != null)
                 {
                     ParticleSystem laserParticleSystem = Instantiate(_laserParticleSystem, player.transform.position, Quaternion.identity);

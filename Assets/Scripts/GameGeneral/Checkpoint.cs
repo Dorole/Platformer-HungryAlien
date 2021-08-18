@@ -18,6 +18,7 @@ public class Checkpoint : MonoBehaviour
         if (_animator != null)
             _animator.SetBool("IsVictory", true);
 
+        FindObjectOfType<AudioManager>().Play("Checkpoint");
         GameManager.instance.spawnPoint = gameObject;
 
         gameObject.GetComponent<Collider2D>().enabled = false;

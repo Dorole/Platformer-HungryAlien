@@ -21,6 +21,7 @@ public class JewelKey : MonoBehaviour
 
         _jewelLockScript.hasKey = true;
 
-		Destroy(gameObject);
+        FindObjectOfType<AudioManager>().Play("Gem");
+        Destroy(gameObject);
 	}
 }

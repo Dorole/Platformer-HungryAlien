@@ -5,7 +5,7 @@ using UnityEngine;
 public class DamagingObject : MonoBehaviour
 {
     public float waitAfterPlayerDeath = 1.0f;
-    
+     
     private Vector3 _startingPosition;
 
     private void Start()
@@ -42,6 +42,7 @@ public class DamagingObject : MonoBehaviour
 
     public void ResetPosition()
     {
+        //instantiate u game manageru ako je kugla null
         transform.position = _startingPosition;
     }
 

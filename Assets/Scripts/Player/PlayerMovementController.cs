@@ -87,6 +87,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 _movementVertical = 0.0f;
                 _rigidbody2D.AddForce(Vector2.up * JumpForce);
+                FindObjectOfType<AudioManager>().Play("Jump");
             } else
             {
                 if (_canDoubleJump)
@@ -96,6 +97,7 @@ public class PlayerMovementController : MonoBehaviour
 
                     _movementVertical = 0.0f;
                     _rigidbody2D.AddForce(Vector2.up * JumpForce);
+                    FindObjectOfType<AudioManager>().Play("Jump");
                     _canDoubleJump = false;
                 }
             }

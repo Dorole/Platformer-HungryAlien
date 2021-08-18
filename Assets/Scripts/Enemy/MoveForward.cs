@@ -6,7 +6,12 @@ public class MoveForward : MonoBehaviour
 {
     public float speed = 5.00f;
 
-    void FixedUpdate()
+    private void Start()
+    {
+        FindObjectOfType<AudioManager>().Play("Snowball");
+    }
+
+    void Update()
     {
         transform.position += transform.right * speed * Time.deltaTime;
     }

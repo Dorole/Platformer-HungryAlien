@@ -133,6 +133,7 @@ public class GameManager : MonoBehaviour
             _chaser.GetComponent<DamagingObject>().ResetPosition();
         }
 
+        FindObjectOfType<AudioManager>().Play("PlayerRespawn");
         GameObject clone = Instantiate(spawnParticlePrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
         Destroy(clone, 3.0f);
 
@@ -204,6 +205,7 @@ public class GameManager : MonoBehaviour
     void ShowFloatingText()
     {
         Instantiate(floatingTextPrefab, saveButton.transform.position, Quaternion.identity, endCanvas.transform);
+        //audio
     }
 
 }

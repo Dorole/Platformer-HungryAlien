@@ -15,10 +15,11 @@ public class Apple : MonoBehaviour
 
         GameManager.instance.UpdateAppleBar(appleValue);
 
+        if(gameObject.tag != "SpecialApple")
+            FindObjectOfType<AudioManager>().Play("Apple");
+
         if (gameObject.tag == "BossApple")
             GameManager.instance.StartCoroutine("SpawnApple", transform.position);
-            
-        
 
         Destroy(gameObject);
     }
