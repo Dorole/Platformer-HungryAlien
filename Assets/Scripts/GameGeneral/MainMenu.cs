@@ -26,10 +26,14 @@ public class MainMenu : MonoBehaviour
     public void LoadGame()
     {
         if (PlayerPrefs.GetInt("LoadSaved") == 1)
+        {
+            FindObjectOfType<AudioManager>().Play("Apple");
             SceneManager.LoadScene(PlayerPrefs.GetInt("SavedGame"));
+        }
         else
         {
             Instantiate(floatingLoadText, loadButton.transform.position, Quaternion.identity, transform);
+            FindObjectOfType<AudioManager>().Play("LoadFailed");
         }
 
     }

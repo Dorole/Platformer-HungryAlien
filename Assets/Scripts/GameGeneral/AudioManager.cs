@@ -7,6 +7,7 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
+    public float fadeOutTime = 0.3f;
 
     //public static AudioManager instance;
 
@@ -90,5 +91,18 @@ public class AudioManager : MonoBehaviour
         }
 
         s.source.volume *= 2;
+    }
+
+    public void FadeOut(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+
+        StartCoroutine(AudioFadeOut.FadeOut(s, fadeOutTime));
     }
 }

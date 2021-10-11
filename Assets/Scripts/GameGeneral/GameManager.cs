@@ -1,18 +1,20 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    
+    public CinemachineVirtualCamera virtualCamera;
 
     [Header("Start Level")]
     public bool bossLevel;
     private PlayerMovementController _playerMC;
     public bool gunAvailable;
-
+    [Space]
     [Header("Spawning")]
     public GameObject playerPrefab;
     public GameObject spawnPoint;
@@ -21,23 +23,22 @@ public class GameManager : MonoBehaviour
     public bool isChaserActive;
     public bool isPlayerDead;
     private GameObject _chaser;
-
-
+    [Space]
     [Header("Slider")]
     public Slider appleSlider;
     public int maxSliderValue = 20;
     public GameObject laserCanvas;
     public Slider laserSlider;
     private GameObject _player;
-
+    [Space]
     [Header("PlatformManager")]
     public GameObject fallingPlatform;
     public float waitBeforeSpawning = 5.0f;
-
+    [Space]
     [Header("AppleSpawner")]
     public GameObject applePrefab;
     public float waitBeforeSpawningApple = 7.0f;
-
+    [Space]
     [Header("End Level")]
     public GameObject friendToSave;
     public GameObject endParticlePrefab;
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
     public float endDelay = 2.0f;
     private Animator _friendAnimator;
     private int _sceneIndex;
+    private AudioManager _audioManager;
 
     private void Awake()
     {
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
         _playerMC = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementController>();
         _sceneIndex = SceneManager.GetActiveScene().buildIndex;
         _player = GameObject.FindGameObjectWithTag("Player");
+        _audioManager = FindObjectOfType<AudioManager>();
 
         if (_sceneIndex != 4)
         {
@@ -127,6 +130,8 @@ public class GameManager : MonoBehaviour
         respawnedMC.isDoubleJumpEnabled = _playerMC.isDoubleJumpEnabled;
         respawnedMC.isWallJumpEnabled = _playerMC.isWallJumpEnabled;
 
+        virtualCamera.Follow = respawnedPlayer.transform;
+
         if (_chaser != null)
         {
             isPlayerDead = false;
@@ -142,15 +147,15 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(5f);
             AppleBarSlider.instance.DecreaseAppleSlider();
         }
-
     }
 
     public IEnumerator EndLevel()
     {
         AppleBarSlider.instance.StopAllCoroutines();
 
-        //audio
+        _audioManager.FadeOut("Theme");
         _friendAnimator.SetBool("isFree", true);
+        _audioManager.Play("LevelEnd");
 
         yield return new WaitForSeconds(endDelay);
 
@@ -160,6 +165,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
+        _audioManager.Play("EndMenu");
         endCanvas.SetActive(true);
         Time.timeScale = 0f;
 
@@ -183,12 +189,14 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
+        _audioManager.Play("Apple");
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void LoadMenu()
     {
+        _audioManager.Play("Apple");
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
@@ -199,7 +207,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("SavedGame", SceneManager.GetActiveScene().buildIndex + 1);
 
         if(floatingTextPrefab)
+        {
+            _audioManager.Play("Apple");
             ShowFloatingText();
+        }
     }
 
     void ShowFloatingText()

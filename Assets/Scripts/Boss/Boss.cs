@@ -8,6 +8,7 @@ public class Boss : MonoBehaviour
 
     public GameObject bossProjectilePrefab;
     public Transform bossFiringPoint;
+    public Canvas healthCanvas;
     public float firingPower = 50.0f;
 
     public int projectileDamage = 10;
@@ -23,11 +24,14 @@ public class Boss : MonoBehaviour
 
     private float _nextTimeToFire;
     private float _nextTimeToSearch = 2.0f;
+
+    private Vector3 _flippedCanvasPosition;
  
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         _bossHealth = GetComponent<BossHealth>().health;
+        _flippedCanvasPosition = new Vector3(transform.position.x * -1.0f, healthCanvas.transform.position.y, healthCanvas.transform.position.z);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -53,16 +57,20 @@ public class Boss : MonoBehaviour
         Vector3 flipped = transform.localScale;
         flipped.z *= -1.0f;
 
+        Vector3 canvasFlipped = healthCanvas.transform.localScale;
+
         if (transform.position.x > player.position.x && isFlipped)
         {
             transform.localScale = flipped;
-            
+            canvasFlipped.x *= -1;
+            healthCanvas.transform.localScale = canvasFlipped;
             transform.Rotate(0f, 180f, 0f);
             isFlipped = false;
         }
         else if (transform.position.x < player.position.x && !isFlipped)
         {
             transform.localScale = flipped;
+            healthCanvas.transform.localScale = canvasFlipped;
             transform.Rotate(0f, 180f, 0f);
             isFlipped = true;
         }

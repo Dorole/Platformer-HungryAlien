@@ -57,7 +57,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Apple
-    clip: {fileID: 8300000, guid: 5f04151fddd20f74baab066ed5e261a8, type: 3}
+    clip: {fileID: 8300000, guid: 383c9a53062dbca4ea6cbc40850ebb58, type: 3}
     volume: 0.7
     pitch: 1
     loop: 0
@@ -146,3 +146,16 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: ButtonHover
+    clip: {fileID: 8300000, guid: 91e5b53ab6fcf3c448eab5c8da366d49, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: EndMenu
+    clip: {fileID: 8300000, guid: 91e5b53ab6fcf3c448eab5c8da366d49, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  fadeOutTime: 0.3
