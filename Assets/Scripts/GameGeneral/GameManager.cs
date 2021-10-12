@@ -91,11 +91,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-
-    }
-
     public void UpdateAppleBar(int value)
     {
 

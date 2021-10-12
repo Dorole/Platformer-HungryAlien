@@ -11,10 +11,9 @@ public class LaserBarSlider : MonoBehaviour
     private Slider _laserSlider;
     public int currentSliderValue = 25;
     private WaitForSeconds _decreaseTick = new WaitForSeconds(1.0f);
-
-    public GunSpawner _gunSpawner;
     
-    [SerializeField] private ParticleSystem _laserParticleSystem;
+    [SerializeField] 
+    private ParticleSystem _laserParticleSystem;
 
     private void Awake()
     {
@@ -23,9 +22,6 @@ public class LaserBarSlider : MonoBehaviour
         _laserSlider = GetComponent<Slider>();
         _laserSlider.value = currentSliderValue;
         _laserSlider.maxValue = currentSliderValue;
-
-        if (GameObject.FindGameObjectWithTag("GunSpawner") != null)
-            _gunSpawner = GameObject.FindGameObjectWithTag("GunSpawner").GetComponent<GunSpawner>();
     }
 
     public void DecreaseLaserSlider()
@@ -47,8 +43,9 @@ public class LaserBarSlider : MonoBehaviour
             if (slider.value == 0) 
             {
                 GameObject.FindGameObjectWithTag("LaserGun").GetComponent<Shoot>().canFire = false;
-                _gunSpawner.playerHasGun = false;
-                _gunSpawner.timer = Time.time + _gunSpawner.waitBeforeSpawning;
+
+                GameEvents.instance.SpawnGun();
+
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 Destroy(player.transform.Find("LaserGun").gameObject);
 

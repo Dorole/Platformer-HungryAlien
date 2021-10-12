@@ -70,11 +70,8 @@ public class HealthManager : MonoBehaviour
 
             foreach (GameObject gunSpawner in gunSpawners)
             {
-                //iz nekog razloga ne funkcionira s bool hasGun = gunSpawner.GetComponent<GunSpawner>().playerHasGun
-                if (!gunSpawner.GetComponent<GunSpawner>().playerHasGun)
-                    break;
-
-                gunSpawner.GetComponent<GunSpawner>().playerHasGun = false;
+                if (gunSpawner.transform.childCount == 0)
+                    GameEvents.instance.SpawnGun();
             }
         }
 

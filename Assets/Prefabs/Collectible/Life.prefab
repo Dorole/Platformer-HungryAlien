@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42830180cfdd3814fb70ebf9811984ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: -0.89, y: 1, z: 0}
+  _offset: {x: -0.89, y: 1, z: 0}
 --- !u!95 &1385195640661260419
 Animator:
   serializedVersion: 3
