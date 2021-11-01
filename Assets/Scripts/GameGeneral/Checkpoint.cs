@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Cinemachine;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+    public CinemachineVirtualCamera cam;
     private Animator _animator;
     
     private void Awake()
@@ -20,6 +20,7 @@ public class Checkpoint : MonoBehaviour
 
         FindObjectOfType<AudioManager>().Play("Checkpoint");
         GameManager.instance.spawnPoint = gameObject;
+        GameManager.instance.virtualCamera = cam; 
 
         gameObject.GetComponent<Collider2D>().enabled = false;
 

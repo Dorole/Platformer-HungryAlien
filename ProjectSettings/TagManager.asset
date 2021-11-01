@@ -27,6 +27,7 @@ TagManager:
   - BossApple
   - SecondaryCamera
   - BossTrigger
+  - StaticCam
   layers:
   - Default
   - TransparentFX
@@ -48,7 +49,7 @@ TagManager:
   - PlayerProjectile
   - BossProjectile
   - Confiner
-  - 
+  - Camera
   - 
   - 
   - 

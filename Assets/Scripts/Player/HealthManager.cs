@@ -6,13 +6,9 @@ using UnityEngine.UI;
 public class HealthManager : MonoBehaviour
 {
     public Vector3 startingPosition;
-
     public Slider appleSlider;
-
     public float waitBeforeRespawningPlayer = 2.0f;
-
     public int health;
-
     public GameObject extraLife;
     public bool pickedUpLife;
 

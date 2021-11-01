@@ -7,22 +7,24 @@ using Cinemachine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    
+        
     public CinemachineVirtualCamera virtualCamera;
 
     [Header("Start Level")]
-    public bool bossLevel;
+    [HideInInspector] public bool bossLevel;
     private PlayerMovementController _playerMC;
-    public bool gunAvailable;
+    [HideInInspector] public bool gunAvailable;
+
     [Space]
     [Header("Spawning")]
     public GameObject playerPrefab;
     public GameObject spawnPoint;
     public float spawnDelay = 1.0f;
     public GameObject spawnParticlePrefab;
-    public bool isChaserActive;
-    public bool isPlayerDead;
+    [HideInInspector]  public bool isChaserActive;
+    [HideInInspector]  public bool isPlayerDead;
     private GameObject _chaser;
+
     [Space]
     [Header("Slider")]
     public Slider appleSlider;
@@ -30,25 +32,27 @@ public class GameManager : MonoBehaviour
     public GameObject laserCanvas;
     public Slider laserSlider;
     private GameObject _player;
+
     [Space]
     [Header("PlatformManager")]
     public GameObject fallingPlatform;
     public float waitBeforeSpawning = 5.0f;
+
     [Space]
     [Header("AppleSpawner")]
     public GameObject applePrefab;
     public float waitBeforeSpawningApple = 7.0f;
+
     [Space]
     [Header("End Level")]
+    public float endDelay = 2.0f;
+    private int _sceneIndex;
     public GameObject friendToSave;
     public GameObject endParticlePrefab;
     public GameObject endCanvas;
     public Text floatingTextPrefab;
     public Button saveButton;
-    public bool isLevelFinished;
-    public float endDelay = 2.0f;
     private Animator _friendAnimator;
-    private int _sceneIndex;
     private AudioManager _audioManager;
 
     private void Awake()
@@ -117,6 +121,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator RespawnPlayer()
     {
         //audio manager or check brackeys 13. respawn effect
+
         yield return new WaitForSeconds(spawnDelay);
         appleSlider.value = maxSliderValue;
 
@@ -124,6 +129,15 @@ public class GameManager : MonoBehaviour
         PlayerMovementController respawnedMC = respawnedPlayer.GetComponent<PlayerMovementController>();
         respawnedMC.isDoubleJumpEnabled = _playerMC.isDoubleJumpEnabled;
         respawnedMC.isWallJumpEnabled = _playerMC.isWallJumpEnabled;
+
+        if (spawnPoint.GetComponent<Checkpoint>() != null && spawnPoint.GetComponent<Checkpoint>().cam != virtualCamera)
+        {
+            CinemachineVirtualCamera prevCam = virtualCamera;
+
+            virtualCamera = spawnPoint.GetComponent<Checkpoint>().cam;
+            prevCam.Priority = 1;
+            virtualCamera.Priority = 2;
+        }
 
         virtualCamera.Follow = respawnedPlayer.transform;
 
