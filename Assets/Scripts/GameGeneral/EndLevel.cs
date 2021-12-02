@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EndLevel : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class EndLevel : MonoBehaviour
         if (collision.tag != "Player")
             return;
 
-        GetComponent<BoxCollider2D>().isTrigger = false;
+        GetComponent<BoxCollider2D>().enabled = false;
         GameManager.instance.StartCoroutine(GameManager.instance.EndLevel());
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Spring : MonoBehaviour
 {
@@ -30,7 +28,7 @@ public class Spring : MonoBehaviour
         if (collision.gameObject.tag != "Player")
             return;
 
-        FindObjectOfType<AudioManager>().Play("Jump");
+        AudioManager.instance.Play("Jump");
         collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * BounceForce, ForceMode2D.Impulse);
 
         if (gameObject.tag != "BouncyCandy")

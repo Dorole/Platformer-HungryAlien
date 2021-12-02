@@ -28,6 +28,9 @@ TagManager:
   - SecondaryCamera
   - BossTrigger
   - StaticCam
+  - NPCam
+  - LifeParentObject
+  - ApplesParentObject
   layers:
   - Default
   - TransparentFX

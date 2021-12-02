@@ -22,19 +22,4 @@ public class DamageChecker : MonoBehaviour
         else
             return;
     }
-
-    /*private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
-            GetComponentInParent<BossHealth>().TakeDamage(jumpDamage);
-        }
-
-        else if (collision.gameObject.tag == "Projectile")
-            GetComponentInParent<BossHealth>().TakeDamage(projectileDamage);
-
-        else
-            return;
-    }*/
 }

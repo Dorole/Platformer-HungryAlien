@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class JewelLock : MonoBehaviour
 {
@@ -37,7 +35,7 @@ public class JewelLock : MonoBehaviour
         objectToInstantiate = Instantiate(objectToInstantiate, transform.position, Quaternion.identity);
         objectToInstantiate.transform.SetParent(null);
 
-        FindObjectOfType<AudioManager>().Play("Chest");
+        AudioManager.instance.Play("Chest");
         Destroy(gameObject);
     }
 

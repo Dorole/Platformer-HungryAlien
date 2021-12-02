@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DestroyObject : MonoBehaviour
 {
     private GameObject _parent;
+    [SerializeField] private GameObject _snowballParticles;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,7 +12,14 @@ public class DestroyObject : MonoBehaviour
             _parent = collision.transform.parent.gameObject;
 
             GameManager.instance.isChaserActive = false;
+                 
             Destroy(_parent);
+            AudioManager.instance.Play("SnowballDestroyed");
+            GameObject snowParticles = Instantiate(_snowballParticles, transform.position, Quaternion.identity);
+
+            AudioManager.instance.Stop("Snowball");
+
+            Destroy(snowParticles, 3f);
         }
         else
             return;

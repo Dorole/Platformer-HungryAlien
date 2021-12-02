@@ -1,28 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager instance;
+
     public Sound[] sounds;
     public float fadeOutTime = 0.3f;
 
-    //public static AudioManager instance;
-
     private void Awake()
-    {   
-        //instance to be used in case of continuous music (same clip)
-        /*if (instance == null)
-            instance = this;
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);*/
+    {
+        instance = this;
 
         foreach (Sound s in sounds)
         {
@@ -33,7 +21,6 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
-        
     }
 
     private void Start()

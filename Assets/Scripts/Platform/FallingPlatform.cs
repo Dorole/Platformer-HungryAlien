@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour
@@ -30,7 +29,7 @@ public class FallingPlatform : MonoBehaviour
     {
         yield return new WaitForSeconds(fallDelay);
 
-        FindObjectOfType<AudioManager>().Play("FallingPlatform");
+        AudioManager.instance.Play("FallingPlatform");
 
         _platformRB.isKinematic = false;
         GetComponent<BoxCollider2D>().enabled = false;

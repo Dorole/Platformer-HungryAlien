@@ -15,20 +15,22 @@ public class BossMove : StateMachineBehaviour
     private Transform _player;
     private Rigidbody2D _rb;
     private Boss _boss;
-
-    private int _bossHealth;
+    private BossHealth _bossHealth;
     
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _boss = animator.GetComponent<Boss>();
         _player = _boss.player;
         _rb = animator.GetComponent<Rigidbody2D>();
-        _bossHealth = animator.GetComponent<BossHealth>().health;
+        _bossHealth = animator.GetComponent<BossHealth>();
        
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (_bossHealth.health <= 0)
+            return;
+
         if (_player == null)
         {
             _boss.FindPlayer();
@@ -41,7 +43,7 @@ public class BossMove : StateMachineBehaviour
         //ne radi ako mijenjam transform animacije u Unityju, zasto?
         Vector2 target = new Vector2(_player.position.x, _rb.position.y);
 
-        if (_bossHealth > 30)
+        if (_bossHealth.health >= 30)
         {
             _speed = startingSpeed;
             _attackRange = startingRange;

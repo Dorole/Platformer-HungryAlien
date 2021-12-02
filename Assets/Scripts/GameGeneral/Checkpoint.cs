@@ -18,7 +18,7 @@ public class Checkpoint : MonoBehaviour
         if (_animator != null)
             _animator.SetBool("IsVictory", true);
 
-        FindObjectOfType<AudioManager>().Play("Checkpoint");
+        AudioManager.instance.Play("Checkpoint");
         GameManager.instance.spawnPoint = gameObject;
         GameManager.instance.virtualCamera = cam; 
 

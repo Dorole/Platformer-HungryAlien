@@ -53,7 +53,12 @@ public class GameManager : MonoBehaviour
     public Text floatingTextPrefab;
     public Button saveButton;
     private Animator _friendAnimator;
-    private AudioManager _audioManager;
+    [SerializeField] private float _waitBeforeEndCanvas = 3.0f;
+
+    [Space]
+    [Header("Boss Level")]
+    [SerializeField] private GameObject _boss;
+    [SerializeField] private GameObject _transformedBoss;
 
     private void Awake()
     {
@@ -61,10 +66,11 @@ public class GameManager : MonoBehaviour
         _playerMC = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementController>();
         _sceneIndex = SceneManager.GetActiveScene().buildIndex;
         _player = GameObject.FindGameObjectWithTag("Player");
-        _audioManager = FindObjectOfType<AudioManager>();
 
         if (_sceneIndex != 4)
         {
+            _player.GetComponent<DestroyOffScreen>().enabled = false;
+
             if (_sceneIndex >= 2)
             {
                 _playerMC.isDoubleJumpEnabled = true;
@@ -83,14 +89,10 @@ public class GameManager : MonoBehaviour
             gunAvailable = true;
         }
 
-        if (laserCanvas == null)
-            return;
-        else
+        if (laserCanvas != null)
             laserCanvas.SetActive(false);
 
-        if (friendToSave == null)
-            return;
-        else
+        if (friendToSave != null)
             _friendAnimator = friendToSave.GetComponent<Animator>();
 
     }
@@ -112,23 +114,23 @@ public class GameManager : MonoBehaviour
 
     public void UpdateLaserBar()
     {
-        laserSlider.value = LaserBarSlider.instance.currentSliderValue;
         laserCanvas.SetActive(true);
+        laserSlider.value = LaserBarSlider.instance.currentSliderValue;
         LaserBarSlider.instance.DecreaseLaserSlider();
-
     }
 
     public IEnumerator RespawnPlayer()
     {
-        //audio manager or check brackeys 13. respawn effect
-
         yield return new WaitForSeconds(spawnDelay);
         appleSlider.value = maxSliderValue;
 
         GameObject respawnedPlayer = Instantiate(playerPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        _player = respawnedPlayer;
+        
         PlayerMovementController respawnedMC = respawnedPlayer.GetComponent<PlayerMovementController>();
         respawnedMC.isDoubleJumpEnabled = _playerMC.isDoubleJumpEnabled;
         respawnedMC.isWallJumpEnabled = _playerMC.isWallJumpEnabled;
+        _playerMC = respawnedMC;
 
         if (spawnPoint.GetComponent<Checkpoint>() != null && spawnPoint.GetComponent<Checkpoint>().cam != virtualCamera)
         {
@@ -139,7 +141,8 @@ public class GameManager : MonoBehaviour
             virtualCamera.Priority = 2;
         }
 
-        virtualCamera.Follow = respawnedPlayer.transform;
+        if (!isChaserActive)
+            virtualCamera.Follow = respawnedPlayer.transform;
 
         if (_chaser != null)
         {
@@ -147,7 +150,7 @@ public class GameManager : MonoBehaviour
             _chaser.GetComponent<DamagingObject>().ResetPosition();
         }
 
-        FindObjectOfType<AudioManager>().Play("PlayerRespawn");
+        AudioManager.instance.Play("PlayerRespawn");
         GameObject clone = Instantiate(spawnParticlePrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
         Destroy(clone, 3.0f);
 
@@ -158,26 +161,52 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator EndLevel()
+    public IEnumerator EndLevel() 
     {
         AppleBarSlider.instance.StopAllCoroutines();
 
-        _audioManager.FadeOut("Theme");
-        _friendAnimator.SetBool("isFree", true);
-        _audioManager.Play("LevelEnd");
+        if (laserCanvas != null && laserCanvas.activeSelf == true)
+        {
+            LaserBarSlider.instance.StopAllCoroutines();
+            LaserBarSlider.instance.DestroyGun();
+            laserCanvas.SetActive(false);
+        }
 
+        if (friendToSave != null)
+        {
+            Instantiate(endParticlePrefab, friendToSave.transform.position, Quaternion.identity);
+            _friendAnimator.SetBool("isFree", true);
+        }
+
+        _player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        _player.GetComponent<Animator>().SetBool("HasWon", true);
+        _playerMC.enabled = false;
+
+        AudioManager.instance.FadeOut("Theme");
         yield return new WaitForSeconds(endDelay);
+        AudioManager.instance.Play("LevelEnd");
 
-        GameObject friendParticles = Instantiate(endParticlePrefab, friendToSave.transform.position, Quaternion.identity);
-        Destroy(friendToSave, 1.0f);
-        Destroy(friendParticles, 3.0f);
+        if (_sceneIndex != 4)
+            Destroy(friendToSave, _waitBeforeEndCanvas-1f);
+         else
+        {
+            Vector3 bossPos = _boss.transform.position;
+            bossPos.y = _boss.transform.position.y + 0.5f;
 
-        yield return new WaitForSeconds(3f);
+            GameObject bossParticles = Instantiate(endParticlePrefab, bossPos, Quaternion.identity);
+            Instantiate(_transformedBoss, bossPos, Quaternion.identity);
+            Destroy(_boss);
+            Destroy(bossParticles, 3.0f);
+        }
 
-        _audioManager.Play("EndMenu");
+        yield return new WaitForSeconds(_waitBeforeEndCanvas);
+
+        if (_sceneIndex == 4)
+            AudioManager.instance.Play("Victory");
+        else
+            AudioManager.instance.Play("EndMenu");
+
         endCanvas.SetActive(true);
-        Time.timeScale = 0f;
-
     }
 
     public IEnumerator SpawnPlatform(Vector3 spawnPosition)
@@ -194,20 +223,7 @@ public class GameManager : MonoBehaviour
 
         GameObject newApple = Instantiate(applePrefab, spawnPosition, applePrefab.transform.rotation);
         newApple.tag = "BossApple";
-    }
-
-    public void NextLevel()
-    {
-        _audioManager.Play("Apple");
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    public void LoadMenu()
-    {
-        _audioManager.Play("Apple");
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(0);
+        newApple.transform.parent = GameObject.FindGameObjectWithTag("ApplesParentObject").transform;
     }
 
     public void SaveGame()
@@ -217,15 +233,28 @@ public class GameManager : MonoBehaviour
 
         if(floatingTextPrefab)
         {
-            _audioManager.Play("Apple");
+            AudioManager.instance.Play("Apple");
             ShowFloatingText();
         }
+    }
+
+    public void QuitGame()
+    {
+        AudioManager.instance.Play("Apple");
+        PlayerPrefs.SetInt("LoadSaved", 1);
+        PlayerPrefs.SetInt("SavedGame", SceneManager.GetActiveScene().buildIndex);
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
+
     }
 
     void ShowFloatingText()
     {
         Instantiate(floatingTextPrefab, saveButton.transform.position, Quaternion.identity, endCanvas.transform);
-        //audio
     }
 
 }

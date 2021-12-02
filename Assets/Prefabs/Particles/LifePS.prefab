@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8461815986107235318}
   - component: {fileID: 830471166932003731}
   - component: {fileID: 6017250970287340397}
+  - component: {fileID: 2340184704831527743}
   m_Layer: 0
   m_Name: LifePS
   m_TagString: Untagged
@@ -4768,7 +4769,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4812,3 +4812,17 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &2340184704831527743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180721576147462387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe92be5029809e647b15459b2985c0a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeOut: 3
+  detachChildren: 0

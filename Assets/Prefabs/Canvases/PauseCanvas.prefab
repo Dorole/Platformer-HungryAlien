@@ -308,9 +308,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3012219308618229193}
-        m_MethodName: LoadMenu
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_MethodName: LoadLevel
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -336,8 +336,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 179368427572971959, guid: a6cd32b7422e35f478260f2be2f6d55f,
-            type: 3}
+        - m_Target: {fileID: 0}
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -346,22 +345,6 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: ButtonHover
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 179368427572971959, guid: a6cd32b7422e35f478260f2be2f6d55f,
-            type: 3}
-          m_MethodName: Play
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Apple
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &3012219307335357054
@@ -484,13 +467,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3012219308618229193}
-        m_MethodName: RestartLevel
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_MethodName: LoadLevel
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -512,8 +495,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 179368427572971959, guid: a6cd32b7422e35f478260f2be2f6d55f,
-            type: 3}
+        - m_Target: {fileID: 0}
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -522,22 +504,6 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: ButtonHover
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 179368427572971959, guid: a6cd32b7422e35f478260f2be2f6d55f,
-            type: 3}
-          m_MethodName: Play
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Apple
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &3012219307458831957
@@ -758,7 +724,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3012219308618229193}
+      - m_Target: {fileID: 0}
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -786,8 +752,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 179368427572971959, guid: a6cd32b7422e35f478260f2be2f6d55f,
-            type: 3}
+        - m_Target: {fileID: 0}
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -796,22 +761,6 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: ButtonHover
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 179368427572971959, guid: a6cd32b7422e35f478260f2be2f6d55f,
-            type: 3}
-          m_MethodName: Play
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Apple
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &3012219308432468663
@@ -1075,12 +1024,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1115,6 +1064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 3012219307458831957}
+  levelLoader: {fileID: 0}
 --- !u!1 &3012219308663312193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,8 +1213,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 179368427572971959, guid: a6cd32b7422e35f478260f2be2f6d55f,
-            type: 3}
+        - m_Target: {fileID: 0}
           m_MethodName: Play
           m_Mode: 5
           m_Arguments:
@@ -1273,21 +1222,5 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: ButtonHover
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 179368427572971959, guid: a6cd32b7422e35f478260f2be2f6d55f,
-            type: 3}
-          m_MethodName: Play
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Apple
             m_BoolArgument: 0
           m_CallState: 2

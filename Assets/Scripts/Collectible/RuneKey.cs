@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class RuneKey : MonoBehaviour
@@ -20,7 +18,7 @@ public class RuneKey : MonoBehaviour
 
         //add to inventory?
 
-        FindObjectOfType<AudioManager>().Play("Rune");
+        AudioManager.instance.Play("Rune");
         Destroy(gameObject);
 
     }

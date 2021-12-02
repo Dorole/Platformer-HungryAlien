@@ -84,7 +84,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 20
+  m_MaxValue: 30
   m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8652c0941ef0d424bbfcb1223a08cad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSliderValue: 25
+  currentSliderValue: 30
   _laserParticleSystem: {fileID: 5669637793931253676, guid: 8421e779d623b3142829e974fbbc672f,
     type: 3}
 --- !u!1 &661404896530378231
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8666667, g: 0.76925176, b: 0, a: 1}
+  m_Color: {r: 0.09411766, g: 0.6509804, b: 0.8705883, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3127698048496999542, guid: ccfd8ca6f08f73142b7445fa0b65a67a,
+  m_Sprite: {fileID: -6486743883618765335, guid: ccfd8ca6f08f73142b7445fa0b65a67a,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -346,7 +346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &661404897450734795
 RectTransform:
   m_ObjectHideFlags: 0
@@ -400,12 +400,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 500
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

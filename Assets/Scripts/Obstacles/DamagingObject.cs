@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DamagingObject : MonoBehaviour
 {
-    public float waitAfterPlayerDeath = 1.0f;
-     
     private Vector3 _startingPosition;
 
     private void Start()

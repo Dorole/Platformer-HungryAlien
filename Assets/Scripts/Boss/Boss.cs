@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    public bool isFlipped = false;
+    private bool _isFlipped = false;
 
     public GameObject bossProjectilePrefab;
     public Transform bossFiringPoint;
@@ -15,7 +13,7 @@ public class Boss : MonoBehaviour
 
     public Transform player;
 
-    private int _bossHealth;
+    private BossHealth _bossHealth;
 
     public float startingFireRate = 1.5f;
     public float damagedFireRate = 1.0f;
@@ -25,13 +23,12 @@ public class Boss : MonoBehaviour
     private float _nextTimeToFire;
     private float _nextTimeToSearch = 2.0f;
 
-    private Vector3 _flippedCanvasPosition;
+    //private Vector3 _flippedCanvasPosition;
  
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        _bossHealth = GetComponent<BossHealth>().health;
-        _flippedCanvasPosition = new Vector3(transform.position.x * -1.0f, healthCanvas.transform.position.y, healthCanvas.transform.position.z);
+        _bossHealth = GetComponent<BossHealth>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -59,20 +56,21 @@ public class Boss : MonoBehaviour
 
         Vector3 canvasFlipped = healthCanvas.transform.localScale;
 
-        if (transform.position.x > player.position.x && isFlipped)
+        if (transform.position.x > player.position.x && _isFlipped)
         {
             transform.localScale = flipped;
             canvasFlipped.x *= -1;
             healthCanvas.transform.localScale = canvasFlipped;
             transform.Rotate(0f, 180f, 0f);
-            isFlipped = false;
+            _isFlipped = false;
         }
-        else if (transform.position.x < player.position.x && !isFlipped)
+        else if (transform.position.x < player.position.x && !_isFlipped)
         {
             transform.localScale = flipped;
+            canvasFlipped.x *= -1;
             healthCanvas.transform.localScale = canvasFlipped;
             transform.Rotate(0f, 180f, 0f);
-            isFlipped = true;
+            _isFlipped = true;
         }
     }
 
@@ -81,11 +79,11 @@ public class Boss : MonoBehaviour
         if (bossProjectilePrefab == null)
             return;
 
-        if (_bossHealth > 60)
+        if (_bossHealth.health > 60)
             _fireRate = startingFireRate;
-        else if (_bossHealth <= 60 && _bossHealth > 30)
+        else if (_bossHealth.health <= 60 && _bossHealth.health > 30)
             _fireRate = damagedFireRate;
-        else if (_bossHealth <= 30)
+        else if (_bossHealth.health <= 30)
             _fireRate = dyingFireRate;
         
         if (_nextTimeToFire < Time.time)
@@ -106,4 +104,5 @@ public class Boss : MonoBehaviour
         }
 
     }
+
 }

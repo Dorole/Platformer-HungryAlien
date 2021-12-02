@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
@@ -68,7 +67,7 @@ public class EnemyMover : MonoBehaviour
             if (Enemy.gameObject.tag != "FlyingEnemy")
                 FlipEnemy();
 
-            if (_currentWaypointIndex >= Waypoints.Count)  //index od 0 do N-1, count N
+            if (_currentWaypointIndex >= Waypoints.Count)  
                 _currentWaypointIndex = 0;
 
         }

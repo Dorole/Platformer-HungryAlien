@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
@@ -98,7 +96,7 @@ public class EnemyController : MonoBehaviour
         if (_isStunned == false)
             return;
 
-        FindObjectOfType<AudioManager>().Play("EnemyDeath");
+        AudioManager.instance.Play("EnemyDeath");
         GetComponentInParent<EnemyMover>().Die();
         GetComponentInParent<EnemyMover>().enabled = false;
         transform.GetComponent<BoxCollider2D>().enabled = false;
@@ -109,7 +107,7 @@ public class EnemyController : MonoBehaviour
 
     public void Killshot()
     {
-        FindObjectOfType<AudioManager>().Play("EnemyDeath");
+        AudioManager.instance.Play("EnemyDeath");
         transform.GetComponent<BoxCollider2D>().enabled = false;
         transform.GetChild(0).gameObject.GetComponent<BoxCollider2D>().enabled = false;
         GetComponentInParent<EnemyMover>().Die();

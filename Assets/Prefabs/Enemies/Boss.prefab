@@ -171,6 +171,7 @@ MonoBehaviour:
   bossProjectilePrefab: {fileID: 922772400467587432, guid: 80cc6432d298ae940b6f74d764f58b14,
     type: 3}
   bossFiringPoint: {fileID: 8899788529124267033}
+  healthCanvas: {fileID: 8899788529677711740}
   firingPower: 50
   projectileDamage: 10
   player: {fileID: 0}
@@ -192,7 +193,8 @@ MonoBehaviour:
   health: 100
   maxHealth: 0
   nextTimeToHit: 2
-  _bossDeathParticleSystem: {fileID: 0}
+  _bossDeathParticleSystem: {fileID: 357585179049567324, guid: 96be4dea904a28b4da5156452bd1f05e,
+    type: 3}
 --- !u!1 &5916461871252087423
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad619cbfdb9561a4199cae8c704e8292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForce: 20
+  bounceForce: 15
   projectileDamage: 10
   jumpDamage: 5
 --- !u!1 &8899788528864789294

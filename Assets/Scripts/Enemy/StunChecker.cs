@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StunChecker : MonoBehaviour
 {
@@ -30,8 +28,6 @@ public class StunChecker : MonoBehaviour
                 GetComponentInParent<EnemyController>().Stun();
                 collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * BounceForce, ForceMode2D.Impulse);
             }
-
-            //stun sfx
         }
 
         else

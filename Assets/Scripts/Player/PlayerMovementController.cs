@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerMovementController : MonoBehaviour
@@ -87,7 +85,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 _movementVertical = 0.0f;
                 _rigidbody2D.AddForce(Vector2.up * JumpForce);
-                FindObjectOfType<AudioManager>().Play("Jump");
+                AudioManager.instance.Play("Jump");
             } else
             {
                 if (_canDoubleJump)
@@ -97,7 +95,7 @@ public class PlayerMovementController : MonoBehaviour
 
                     _movementVertical = 0.0f;
                     _rigidbody2D.AddForce(Vector2.up * JumpForce);
-                    FindObjectOfType<AudioManager>().Play("Jump");
+                    AudioManager.instance.Play("Jump");
                     _canDoubleJump = false;
                 }
             }
@@ -109,7 +107,7 @@ public class PlayerMovementController : MonoBehaviour
 
         _animator.SetBool("IsGrounded", _isGrounded);
 
-        //TOO DIFFICULT?????
+        //TOO DIFFICULT?
         /*if (appleSlider.value < (appleSlider.maxValue / 2))
             _currentMovementSpeed = movementSpeed / 1.5f;
         else
@@ -150,7 +148,6 @@ public class PlayerMovementController : MonoBehaviour
             _animator.SetBool("IsClimbing", false);
             
         }
-
     }
 
     private void FixedUpdate()
@@ -169,11 +166,6 @@ public class PlayerMovementController : MonoBehaviour
 
         if (_isWallSliding)
             _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, Mathf.Clamp(_rigidbody2D.velocity.y, wallSlideSpeed, float.MaxValue));
-
-
-
-
-
     }
 
     private void LateUpdate()
@@ -195,7 +187,6 @@ public class PlayerMovementController : MonoBehaviour
     {
         if ((collision.gameObject.tag == "MovingPlatform") || (collision.gameObject.tag == "SpawningPlatform") || (collision.gameObject.tag == "TriggeredPlatform"))
             transform.parent = collision.transform;
-
     }
 
     private void OnCollisionExit2D(Collision2D collision)

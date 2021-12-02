@@ -214,8 +214,9 @@ MonoBehaviour:
   appleSlider: {fileID: 0}
   waitBeforeRespawningPlayer: 2
   health: 1
-  extraLife: {fileID: 0}
   pickedUpLife: 0
+  _lifePrefab: {fileID: 1385195640661260420, guid: aedcb85a6ef76734c9c44a099cf2c957,
+    type: 3}
   _lifeParticleSystem: {fileID: 830471166932003731, guid: 729ae1171c26bc940b4117a2721322da,
     type: 3}
 --- !u!114 &709226887634422630

@@ -12,31 +12,37 @@ public class ItemPickup : MonoBehaviour
 
         if (gameObject.tag == "Life")
         {
+            bool isPlayerFacingRight = collision.GetComponent<PlayerMovementController>()._isFacingRight;
+
             transform.parent = collision.transform;
-            transform.position = new Vector3(collision.transform.position.x + _offset.x, collision.transform.position.y + _offset.y, collision.transform.position.z);
+
+            if (isPlayerFacingRight)
+                transform.position = new Vector3(collision.transform.position.x + _offset.x, collision.transform.position.y + _offset.y, collision.transform.position.z);
+            else
+                transform.position = new Vector3(collision.transform.position.x + (_offset.x * -1), collision.transform.position.y + _offset.y, collision.transform.position.z);
 
             HealthManager otherHealthManager = collision.gameObject.GetComponent<HealthManager>();
 
             if (otherHealthManager == null)
                 return;
 
-            otherHealthManager.pickedUpLife = true;
+            otherHealthManager.hasExtraLife = true;
+            otherHealthManager.shouldSpawnLife = true;
             otherHealthManager.health++;
 
-            FindObjectOfType<AudioManager>().Play("Life");
+            AudioManager.instance.Play("Life");
         } 
         
         else if (gameObject.tag == "LaserGun")
         {
-            FindObjectOfType<AudioManager>().Play("GunAcquired");
+            AudioManager.instance.Play("GunAcquired");
             transform.parent = collision.transform;
 
-            bool _isPlayerFacingRight = collision.GetComponent<PlayerMovementController>()._isFacingRight;
+            bool isPlayerFacingRight = collision.GetComponent<PlayerMovementController>()._isFacingRight;
             Vector3 localScale = transform.localScale;
 
-            if (_isPlayerFacingRight)
+            if (isPlayerFacingRight)
                 transform.position = new Vector3(collision.transform.position.x + _offset.x, collision.transform.position.y + _offset.y, collision.transform.position.z);
-
             else
             {
                 localScale.x *= -1.0f;
@@ -50,7 +56,6 @@ public class ItemPickup : MonoBehaviour
         
         else
         {
-            //play audio
             Destroy(gameObject);
         }
     }

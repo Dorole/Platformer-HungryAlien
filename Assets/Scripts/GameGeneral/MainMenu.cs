@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -8,11 +6,12 @@ public class MainMenu : MonoBehaviour
 {
     public Text floatingLoadText;
     public Button loadButton;
+    public GameObject levelLoader;
 
-    public void PlayGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+    //public void PlayGame()
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    //}
 
     public void QuitGame()
     {
@@ -27,13 +26,16 @@ public class MainMenu : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("LoadSaved") == 1)
         {
-            FindObjectOfType<AudioManager>().Play("Apple");
-            SceneManager.LoadScene(PlayerPrefs.GetInt("SavedGame"));
+            AudioManager.instance.Play("Apple");
+            levelLoader.GetComponent<LevelLoader>().LoadLevel(PlayerPrefs.GetInt("SavedGame"));
+            //SceneManager.LoadScene(PlayerPrefs.GetInt("SavedGame"));
         }
         else
         {
-            Instantiate(floatingLoadText, loadButton.transform.position, Quaternion.identity, transform);
-            FindObjectOfType<AudioManager>().Play("LoadFailed");
+            Vector3 buttonPos = loadButton.GetComponent<RectTransform>().anchoredPosition;
+
+            Instantiate(floatingLoadText, buttonPos, Quaternion.identity, transform);
+            AudioManager.instance.Play("LoadFailed");
         }
 
     }

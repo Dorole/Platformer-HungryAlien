@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
@@ -9,13 +7,13 @@ public class HealthManager : MonoBehaviour
     public Slider appleSlider;
     public float waitBeforeRespawningPlayer = 2.0f;
     public int health;
-    public GameObject extraLife;
-    public bool pickedUpLife;
 
-    //private float _maxSliderValue;
-    private Animator _animator;
+    [HideInInspector] public bool shouldSpawnLife;
+    [HideInInspector] public bool hasExtraLife;
+    [SerializeField] private GameObject _lifePrefab;
+    private Vector3 _lifePos;
+
     private TriggerBoss _trigger;
-
     [SerializeField] private ParticleSystem _lifeParticleSystem;
 
     private void Start()
@@ -23,25 +21,20 @@ public class HealthManager : MonoBehaviour
         if (appleSlider == null)
             appleSlider = GameObject.FindGameObjectWithTag("AppleBar").GetComponent<Slider>();
 
-        //_maxSliderValue = appleSlider.maxValue;
-        //_maxSliderValue = _gm.maxSliderValue;
-
         startingPosition = transform.position;
-        _animator = GetComponent<Animator>();
-
-        extraLife = GameObject.FindGameObjectWithTag("Life");
 
         health = 1;
-        pickedUpLife = false;
 
         if (GameManager.instance.bossLevel)
+        {
+            _lifePos = GameObject.FindGameObjectWithTag("Life").transform.position;
             _trigger = GameObject.FindGameObjectWithTag("BossTrigger").GetComponent<TriggerBoss>();
+        }
      }
 
     private void Update()
     {
         Starvation();
-
     }
 
     public void Die()
@@ -49,8 +42,6 @@ public class HealthManager : MonoBehaviour
         if(AppleBarSlider.instance != null)
             AppleBarSlider.instance.StopAllCoroutines();
         
-        _animator.SetBool("IsHurt", true);
-
         GameManager.instance.StartCoroutine(GameManager.instance.RespawnPlayer());
 
         if (GameManager.instance.laserSlider != null && GameManager.instance.laserSlider.IsActive())
@@ -75,31 +66,38 @@ public class HealthManager : MonoBehaviour
         {
             if (_trigger.isTriggered)
                 _trigger.UndoTrigger();
+
+            if (shouldSpawnLife)
+            {
+                GameObject extraLife = Instantiate(_lifePrefab, _lifePos, Quaternion.identity);
+                extraLife.name = "Life";
+                extraLife.transform.parent = GameObject.FindGameObjectWithTag("LifeParentObject").transform;
+            }
         }
 
         GameManager.instance.isPlayerDead = true;
-        FindObjectOfType<AudioManager>().Play("PlayerDeath");
-        Destroy(gameObject);
 
+        AudioManager.instance.Play("PlayerDeath");
+        Destroy(gameObject);
     }
 
     public void TakeDamage()
     {
-        if (pickedUpLife)
+        if (hasExtraLife)
         {
-            if (extraLife == null)
-                return;
+            GameObject life = transform.Find("Life").gameObject;
 
             if (_lifeParticleSystem != null)
             {
-                ParticleSystem lifeParticleSystem = Instantiate(_lifeParticleSystem, extraLife.transform.position, Quaternion.identity);
+                ParticleSystem lifeParticleSystem = Instantiate(_lifeParticleSystem, life.transform.position, Quaternion.identity);
                 lifeParticleSystem.transform.SetParent(null);
                 lifeParticleSystem.Play();
             }
 
-            FindObjectOfType<AudioManager>().Play("LifeDestroyed");
-            Destroy(extraLife);
-            pickedUpLife = false;
+           hasExtraLife = false;
+
+           AudioManager.instance.Play("LifeDestroyed");
+           Destroy(life);
 
         }
 

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
@@ -28,7 +26,6 @@ public class Shoot : MonoBehaviour
 				return;
 
 			_shouldFire = true;
-			//FindObjectOfType<AudioManager>().Play("Shoot");
 		}
 
 		if (_shouldFire)
@@ -36,9 +33,8 @@ public class Shoot : MonoBehaviour
 			if (laserPrefab == null)
 				return;
 
-			FindObjectOfType<AudioManager>().Play("Shoot");
-			GameObject newLaser = Instantiate(laserPrefab, firingPointTransform.position, Quaternion.identity);
-
+			AudioManager.instance.Play("Shoot");
+			Instantiate(laserPrefab, firingPointTransform.position, Quaternion.identity);
 		}
 	}
 }

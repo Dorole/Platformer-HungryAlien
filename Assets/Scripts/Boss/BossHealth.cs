@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossHealth : MonoBehaviour
@@ -9,11 +8,12 @@ public class BossHealth : MonoBehaviour
     public float nextTimeToHit = 2.0f;
 
     private bool _isInvulnerable = false;
-    [SerializeField] private GameObject _bossDeathParticleSystem;
+    private Animator _bossAnimator;
 
     private void Start()
     {
         maxHealth = health;
+        _bossAnimator = GetComponent<Animator>();
     }
 
     public void TakeDamage (int damage)
@@ -24,30 +24,26 @@ public class BossHealth : MonoBehaviour
         health -= damage;
 
         FindObjectOfType<AudioManager>().Play("BossHit");
-        StartCoroutine(InvulnerableBoss());
-            
+        _bossAnimator.SetBool("isHurt", true);
+
         if (health <= 0)
-            Die();
-    }
-
-    void Die()
-    {
-        //GameManager.instance.StartCoroutine(GameManager.instance.EndLevel());
-        if (_bossDeathParticleSystem != null)
-        {
-            GameObject bossParticles = Instantiate(_bossDeathParticleSystem, transform.position, Quaternion.identity);
-            Destroy(bossParticles, 3.0f);
-        }
-
-        Destroy(gameObject);
+            GameManager.instance.StartCoroutine(GameManager.instance.EndLevel()); 
+        else
+            StartCoroutine(InvulnerableBoss());
+            
     }
 
     IEnumerator InvulnerableBoss()
     {
-        _isInvulnerable = true;
-        yield return new WaitForSeconds(nextTimeToHit);
+         _isInvulnerable = true;
 
+        yield return new WaitForSeconds(0.35f);
+        _bossAnimator.SetBool("isHurt", false);
+        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+
+        yield return new WaitForSeconds(nextTimeToHit);
         _isInvulnerable = false;
+        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
     }
 
 }

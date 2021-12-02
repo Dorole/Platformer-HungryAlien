@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Apple : MonoBehaviour
 {
@@ -16,7 +14,7 @@ public class Apple : MonoBehaviour
         GameManager.instance.UpdateAppleBar(appleValue);
 
         if(gameObject.tag != "SpecialApple")
-            FindObjectOfType<AudioManager>().Play("Apple");
+            AudioManager.instance.Play("Apple");
 
         if (gameObject.tag == "BossApple")
             GameManager.instance.StartCoroutine("SpawnApple", transform.position);

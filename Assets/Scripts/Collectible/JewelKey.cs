@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
 public class JewelKey : MonoBehaviour
 {
 	public GameObject jewelLock;
-
     private JewelLock _jewelLockScript;
 
     private void Awake()
@@ -21,7 +17,7 @@ public class JewelKey : MonoBehaviour
 
         _jewelLockScript.hasKey = true;
 
-        FindObjectOfType<AudioManager>().Play("Gem");
+        AudioManager.instance.Play("Gem");
         Destroy(gameObject);
 	}
 }
