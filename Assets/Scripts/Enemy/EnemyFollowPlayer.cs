@@ -2,6 +2,11 @@
 
 public class EnemyFollowPlayer : MonoBehaviour
 {
+    //FEEDBACK: pratiti notaciju pisanja
+    // neki standard je da je
+    // public float NazivVariable
+    // private float _nazivVarijable
+    // proteceted float _NazivVarijable
     public float speed = 10.0f;
     public float minimalDistance = 2.0f;
 
@@ -11,7 +16,7 @@ public class EnemyFollowPlayer : MonoBehaviour
     private void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
-        
+
     }
 
     private void FixedUpdate()
@@ -23,7 +28,7 @@ public class EnemyFollowPlayer : MonoBehaviour
         }
 
         if (Vector2.Distance(transform.position, _player.position) > minimalDistance)
-            transform.position= Vector2.MoveTowards(transform.position, _player.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, _player.position, speed * Time.deltaTime);
 
     }
 

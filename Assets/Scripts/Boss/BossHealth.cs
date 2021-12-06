@@ -16,7 +16,7 @@ public class BossHealth : MonoBehaviour
         _bossAnimator = GetComponent<Animator>();
     }
 
-    public void TakeDamage (int damage)
+    public void TakeDamage(int damage)
     {
         if (_isInvulnerable)
             return;
@@ -27,18 +27,20 @@ public class BossHealth : MonoBehaviour
         _bossAnimator.SetBool("isHurt", true);
 
         if (health <= 0)
-            GameManager.instance.StartCoroutine(GameManager.instance.EndLevel()); 
+            GameManager.instance.StartCoroutine(GameManager.instance.EndLevel());
         else
             StartCoroutine(InvulnerableBoss());
-            
+
     }
 
     IEnumerator InvulnerableBoss()
     {
-         _isInvulnerable = true;
+        _isInvulnerable = true;
 
         yield return new WaitForSeconds(0.35f);
         _bossAnimator.SetBool("isHurt", false);
+        //FEEDBACK: dohvatit ovo jednom u awakeu i koristit varijablu
+        // postavit boje kao javne varijable umjesto hardkodiranih vrijednosti
         GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
 
         yield return new WaitForSeconds(nextTimeToHit);

@@ -7,7 +7,7 @@ using Cinemachine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-        
+
     public CinemachineVirtualCamera virtualCamera;
 
     [Header("Start Level")]
@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
     public GameObject spawnPoint;
     public float spawnDelay = 1.0f;
     public GameObject spawnParticlePrefab;
-    [HideInInspector]  public bool isChaserActive;
-    [HideInInspector]  public bool isPlayerDead;
+    [HideInInspector] public bool isChaserActive;
+    [HideInInspector] public bool isPlayerDead;
     private GameObject _chaser;
 
     [Space]
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
 
         GameObject respawnedPlayer = Instantiate(playerPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
         _player = respawnedPlayer;
-        
+
         PlayerMovementController respawnedMC = respawnedPlayer.GetComponent<PlayerMovementController>();
         respawnedMC.isDoubleJumpEnabled = _playerMC.isDoubleJumpEnabled;
         respawnedMC.isWallJumpEnabled = _playerMC.isWallJumpEnabled;
@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator EndLevel() 
+    public IEnumerator EndLevel()
     {
         AppleBarSlider.instance.StopAllCoroutines();
 
@@ -187,8 +187,8 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.Play("LevelEnd");
 
         if (_sceneIndex != 4)
-            Destroy(friendToSave, _waitBeforeEndCanvas-1f);
-         else
+            Destroy(friendToSave, _waitBeforeEndCanvas - 1f);
+        else
         {
             Vector3 bossPos = _boss.transform.position;
             bossPos.y = _boss.transform.position.y + 0.5f;
@@ -209,6 +209,8 @@ public class GameManager : MonoBehaviour
         endCanvas.SetActive(true);
     }
 
+    //FEEDBACK: game manager ne bi trebao bit zaduzen za ovakve stvari
+    // to je ili platform spawner ili neki level manager
     public IEnumerator SpawnPlatform(Vector3 spawnPosition)
     {
         yield return new WaitForSeconds(waitBeforeSpawning);
@@ -217,6 +219,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //FEEDBACK: isto kao i gore
     public IEnumerator SpawnApple(Vector3 spawnPosition)
     {
         yield return new WaitForSeconds(waitBeforeSpawningApple);
@@ -231,7 +234,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("LoadSaved", 1);
         PlayerPrefs.SetInt("SavedGame", SceneManager.GetActiveScene().buildIndex + 1);
 
-        if(floatingTextPrefab)
+        if (floatingTextPrefab)
         {
             AudioManager.instance.Play("Apple");
             ShowFloatingText();

@@ -26,15 +26,17 @@ public class LadderZone : MonoBehaviour
     {
         if (collision.tag == "Player")
             player.IsOnLadder = true;
-       
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")
-           player.IsOnLadder = false;          
+            player.IsOnLadder = false;
     }
 
+    //FEEDBACK: timer vrijednost bi trebala bit varijable
+    // zasto trazit svaki frejm da li postoji igrac ako ga mozes dobit na ulazak i izlakat trigger ljestava?
     private void FindPlayer()
     {
         if (nextTimeToSearch <= Time.time)

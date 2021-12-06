@@ -24,7 +24,7 @@ public class Boss : MonoBehaviour
     private float _nextTimeToSearch = 2.0f;
 
     //private Vector3 _flippedCanvasPosition;
- 
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -35,6 +35,7 @@ public class Boss : MonoBehaviour
     {
         if (collision.gameObject.tag == "Projectile")
         {
+            //FEEDBACK: koristiti reference umjesto get component i imat provjeru za null
             GetComponentInParent<BossHealth>().TakeDamage(projectileDamage);
         }
 
@@ -54,6 +55,8 @@ public class Boss : MonoBehaviour
         Vector3 flipped = transform.localScale;
         flipped.z *= -1.0f;
 
+        //FEEDBACK: odvojiti recimo ovo u zasebnu dijecu jednog roditelja i onda samo
+        // okretat sprite bossa a canvas ostavit istim
         Vector3 canvasFlipped = healthCanvas.transform.localScale;
 
         if (transform.position.x > player.position.x && _isFlipped)
@@ -79,13 +82,15 @@ public class Boss : MonoBehaviour
         if (bossProjectilePrefab == null)
             return;
 
+        //FEEDBACK: izbjegavati hardkodirane brojke, prebacit u varijable ili slozit kao
+        // listu health i firerate kombinacija
         if (_bossHealth.health > 60)
             _fireRate = startingFireRate;
         else if (_bossHealth.health <= 60 && _bossHealth.health > 30)
             _fireRate = damagedFireRate;
         else if (_bossHealth.health <= 30)
             _fireRate = dyingFireRate;
-        
+
         if (_nextTimeToFire < Time.time)
         {
             Instantiate(bossProjectilePrefab, bossFiringPoint.position, Quaternion.identity);

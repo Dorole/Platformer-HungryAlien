@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class CamController : MonoBehaviour
 {
+    //FEEDBACK: lista kamera, ovako je fiksno uvijek 3 i moras se vratit to mijenjat ako zatreba vise ili manje
     [SerializeField]
     private CinemachineVirtualCamera _camera1;
     [SerializeField]
     private CinemachineVirtualCamera _camera2;
     [SerializeField]
     private CinemachineVirtualCamera _camera3;
-    
+
     private bool _switchArea = true;
 
     private void Start()

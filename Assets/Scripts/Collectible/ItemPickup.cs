@@ -10,6 +10,12 @@ public class ItemPickup : MonoBehaviour
         if (collision.tag != "Player")
             return;
 
+        //FEEDBACK: tag ne smije definirat logiku izvodenja
+        // treba postojati LifePicku i LaserGun pick skripte koje rade razlicite stvari
+        // ako zelis ic korak dalje da postoji apstrakcija u tom slucaju
+        // postoji nadklasa Item s abstraktnom metodom OnPickup koja se poziva u OnTriggerEnter nakon
+        // provjere da li je to bio igrac
+        // klase LifePickup i GunPickup to nasljeduju i implementiraju sto se tamo desava
         if (gameObject.tag == "Life")
         {
             bool isPlayerFacingRight = collision.GetComponent<PlayerMovementController>()._isFacingRight;
@@ -31,8 +37,8 @@ public class ItemPickup : MonoBehaviour
             otherHealthManager.health++;
 
             AudioManager.instance.Play("Life");
-        } 
-        
+        }
+
         else if (gameObject.tag == "LaserGun")
         {
             AudioManager.instance.Play("GunAcquired");
@@ -52,8 +58,8 @@ public class ItemPickup : MonoBehaviour
 
             gameObject.GetComponent<Shoot>().canFire = true;
             GameManager.instance.UpdateLaserBar();
-        } 
-        
+        }
+
         else
         {
             Destroy(gameObject);
