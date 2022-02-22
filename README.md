@@ -71,4 +71,6 @@ KNOWN ERRORS (as of 2-12-2021):
 + water bullets sometimes fire off, but don't travel forward in lvl 4 (depends on player local scale?)
 + spring activates even if the player isn't jumping, but just standing in front of it (find a different solution)
 
+UPDATE (22-2-2022):
++ The game works fine, with a few minor bugs, but the code is a tightly-coupled, non-scalable mess. I'm working on learning how to make it better before I attempt to refactor it.
 
