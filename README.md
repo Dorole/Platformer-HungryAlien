@@ -1,5 +1,5 @@
 # Platformer-HungryAlien
-Final course project. Unity/C#. Current project. 
+Final course project for Machina Game Dev Academy. Unity/C#. Current project. 
 
 ****************************
 
