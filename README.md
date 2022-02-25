@@ -4,6 +4,7 @@ Final course project. Unity/C#. Current project.
 ****************************
 
 STORY:
+
 On a distant planet, Pinky and his friends are living peacefully, enjoying their favourite treats every day: the tastiest apples in the universe which can grow only in their planet's special climate. 
 The apples must be consumed with clean hands, but one of Pinky's friends, Sandy, is too lazy to wash his hands.
 Evil bacteria spreads through his body and consumes him: now he wants to make everyone and everything dirty.
@@ -13,12 +14,14 @@ Now Pinky, armed only with a water gun, has to save his friends and help Sandy b
 ****************************
 
 GAMEPLAY:
+
 The player plays as an alien who goes through three levels collecting gems which unlock chests with runes, which in turn unlock his imprisoned friends.
 In the fourth level the player has to run away from a giant snowball and defeat the black alien.
 
 ****************************
 
 MECHANICS:
+
 ++ Collect apples so as not to starve ++
 The apple/health bar in the upper left corner shows the hunger status.
 The player has to collect apples regularly, otherwise the alien will starve and die.
@@ -48,21 +51,33 @@ When the boss is shot or jumped on, he becomes invulnerable for 2 seconds during
 Once the boss' health bar is depleted, the boss is defeated.
 
 ++ Ways to die ++
+
 Starving
+
 Touching an enemy
+
 Touching a harmful object (moving saws, spinners, spikes)
+
 Falling on spikes or into the water
+
 Falling behind the camera view (only while being chased by the snowball in lvl 4)
+
 Being shot (by the black alien in lvl 4)
 
 ****************************
 
 CONTROLS:
+
 Walk: arrow keys or WASD
+
 Jump: Space
+
 Double jump (unlock in lvl 2): Space
+
 Shoot (unlock in lvl 3): Ctrl
+
 Bounce off walls (unlock in lvl 4): Space + left/right
+
 Pause: Esc
 
 ****************************
